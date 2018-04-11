@@ -3,6 +3,7 @@ const article = require('../models/article-model');
 
 exports.list_all_articles = ( req, res ) => {
     article.find({})
+        .limit(20)
         .then( ( err, articles ) => {
             if( err ){
                 res.send( err );
