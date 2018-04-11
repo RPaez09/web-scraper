@@ -12,7 +12,11 @@ const style = {
 const ArticleList = (props) => {
     return (
         <Paper style={style}>
-            { props.articles && props.articles.map( article => ( <ArticleCard title={article.title} subtitle={ article.subtitle } />
+            { props.articles && props.articles.map( article => ( 
+                <ArticleCard 
+                    key={article.id}
+                    title={article.title} 
+                    link={article.link} />
             ))
             }
         </Paper>)
