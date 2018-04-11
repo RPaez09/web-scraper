@@ -71,13 +71,16 @@ const fetchArticles = () => {
     return new Promise( ( resolve, reject ) => {
         scrapeArticles().then( articles => {
             for( let i = 0; i < articles.length; i++ ){
-                article.create( articles[i] )
-                    .then( ( article ) => {
-                        console.log(`Article Created: ${article.id} | "${article.title}"`);
+                article.findOne({ id: articles[i].id })
+                    .then( result => {
+                        if( !result ){
+                            article.create( articles[i] )
+                                .then( ( article ) => {
+                                    console.log(`Article Created: ${article.id} | "${article.title}"`);
+                                })
+                        }
                     })
-                    .catch( ( error ) => {
-                        console.log('Duplicate article found, not saved');
-                    });
+                    .catch( error => console.log(`Error: ${error}`) )
             }
         }).catch( error => reject( error ) );
     });
