@@ -37,11 +37,21 @@ const scrapeArticles = new Promise( ( resolve, reject ) => {
         }
 
         const cleanResults = resultsArray.map( result => {
+            let link = result.children[4].children[0].attribs.href;
+            let context = `"${url}item?id=${result.attribs.id}"`;
+            let isInternal = false;
+
+            if( link.startsWith("item?id=") ){ //if it's an internal hackernews link
+                link = context; 
+                isInternal = true;
+            };
+
             return {
                 id: result.attribs.id,
                 title: result.children[4].children[0].children[0].data,
-                link: result.children[4].children[0].attribs.href,
-                context: `"${url}item?id=${result.attribs.id}"`
+                link: link,
+                context: context,
+                isInternal: isInternal
             }
         } );
 
