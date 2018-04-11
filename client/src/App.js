@@ -6,6 +6,8 @@ import './App.css';
 
 import AppBar from 'material-ui/AppBar';
 
+import Home from './components/Home/Home';
+
 const muiTheme = getMuiTheme({
   palette: {
     primary1Color: deepOrange700 }
@@ -16,10 +18,12 @@ class App extends Component {
     return (
       <div className="App">
         <MuiThemeProvider muiTheme={muiTheme}>
-        <AppBar
-            title="Hacker News"
-            iconClassNameRight="muidocs-icon-navigation-expand-more"
-          />
+          <React.Fragment>
+            <AppBar
+                title="Hacker News"
+                iconClassNameRight="muidocs-icon-navigation-expand-more" />
+            <Home />
+          </React.Fragment>
         </MuiThemeProvider>
       </div>
     );
