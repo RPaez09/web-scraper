@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const article = mongoose.model('Article');
+const article = require('../models/article-model');
 
 exports.list_all_articles = ( req, res ) => {
     article.find({})
