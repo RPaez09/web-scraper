@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const articleSchema = new Schema({
     id: {
-        type: String,
+        type: Number,
         required: 'An ID is required.',
         unique: true
     },
