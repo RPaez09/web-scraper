@@ -15,8 +15,7 @@ const ArticleList = (props) => {
             { props.articles && props.articles.map( article => ( 
                 <ArticleCard 
                     key={article.id}
-                    title={article.title} 
-                    link={article.link} />
+                    article={article} />
             ))
             }
         </Paper>)

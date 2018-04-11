@@ -5,7 +5,7 @@ import FlatButton from 'material-ui/FlatButton';
 const styles = {
     card: {
         position: 'relative',
-        height: '100px'
+        height: '80px'
     },
     cardHeader: {
         textAlign: 'left',
@@ -21,12 +21,12 @@ const styles = {
 const ArticleCard = (props) => (
     <Card style={styles.card}>
         <CardHeader
-        title={props.title}
-        subtitle={props.link}
+        title={props.article.title}
+        subtitle={props.article.link}
         style={styles.cardHeader}
         />
         <CardActions style={styles.cardActions}>
-            <FlatButton label="Context" />
+            <FlatButton href={props.article.context} target="_blank" label="Context" />
             <FlatButton label="Comments" />
         </CardActions>
         <CardText></CardText>
