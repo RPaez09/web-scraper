@@ -2,6 +2,7 @@ const express       = require('express');
 const bodyParser    = require('body-parser');
 const morgan        = require('morgan');
 const mongoose      = require('mongoose');
+const routes        = require('./routes/routes');
 
 const config        = require('./config/config');
 
@@ -18,6 +19,8 @@ mongoose.connect(config.db);
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+routes(app);
 
 app.listen( port, ( err ) => {
     if(err){
