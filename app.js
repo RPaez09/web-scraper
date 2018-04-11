@@ -40,6 +40,5 @@ app.listen( port, ( err ) => {
 hackerFetch.fetchArticles();
 
 setInterval( () => {
-    console.log('fetching new articles...');
     hackerFetch.fetchArticles()
 } , 120000); // fetch articles once a minute
