@@ -1,7 +1,9 @@
-const https     = require('https');
-const cheerio   = require('cheerio');
-const mongoose  = require('mongoose');
-const article   = require('../models/article-model');
+const https         = require('https');
+const cheerio       = require('cheerio');
+const mongoose      = require('mongoose');
+const article       = require('../models/article-model');
+
+const parseDomain   = require('./parseDomain');
 
 const url = 'https://news.ycombinator.com/';
 
@@ -45,6 +47,7 @@ const scrapeArticles = () => {
                 let link = result.children[4].children[0].attribs.href;
                 let context = `${url}item?id=${result.attribs.id}`;
                 let isInternal = false;
+                let domain = parseDomain(link);
 
                 if( link.startsWith("item?id=") ){ //if it's an internal hackernews link
                     link = context; 
@@ -56,7 +59,8 @@ const scrapeArticles = () => {
                     title: result.children[4].children[0].children[0].data,
                     link: link,
                     context: context,
-                    isInternal: isInternal
+                    isInternal: isInternal,
+                    domain: domain
                 }
             } );
 

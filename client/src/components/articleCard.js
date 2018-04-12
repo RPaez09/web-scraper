@@ -24,13 +24,13 @@ const styles = {
     }
 }
 
-const subTitle = (link) => {
+const subTitle = (link, domain) => {
     return (
     <a 
         href={link} 
         target="_blank"
         style={styles.subTitle}>
-        <span>{link}</span>
+        <span>{domain}</span>
     </a>)
 };
 
@@ -38,7 +38,7 @@ const ArticleCard = (props) => (
     <Card style={styles.card}>
         <CardHeader
             title={props.article.title}
-            subtitle={subTitle(props.article.link)}
+            subtitle={subTitle(props.article.link, props.article.domain)}
             style={styles.cardHeader}
         />
         <CardActions style={styles.cardActions}>

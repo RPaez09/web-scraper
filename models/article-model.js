@@ -19,6 +19,9 @@ const articleSchema = new Schema({
         type: String,
         required: 'The context link is required'
     },
+    domain: {
+        type: String
+    },
     isInternal: {
         type: Boolean,
         default: false
