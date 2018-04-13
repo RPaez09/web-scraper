@@ -4,8 +4,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import './App.css';
 
-import AppBar from 'material-ui/AppBar';
-
+import Navbar from './components/Navbar/NavBar';
 import Main from './components/main';
 
 const muiTheme = getMuiTheme({
@@ -19,9 +18,7 @@ class App extends Component {
       <div className="App">
         <MuiThemeProvider muiTheme={muiTheme}>
           <React.Fragment>
-            <AppBar
-                title="Hacker News"
-                iconClassNameRight="muidocs-icon-navigation-expand-more" />
+            <Navbar />
             <Main />
           </React.Fragment>
         </MuiThemeProvider>
