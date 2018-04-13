@@ -16,7 +16,7 @@ const getToken = headers => {
     }
 };
 
-exports.create_a_user = ( req, res ) => {
+exports.create_a_user = function( req, res ) {
     if( !req.body.username || !req.body.password ){
         res.json( { success: false, msg: 'Please supply a username and password' } );
     } else {
@@ -26,8 +26,9 @@ exports.create_a_user = ( req, res ) => {
             email: req.body.email
         });
 
-        newUser.save( err => {
+        newUser.save( function( err ){
             if( err ){
+                console.log( err );
                 return res.json( { success: false, msg: 'Username or Email in use' } )
             }
             res.json( { success: true, msg: 'New user created successfully' } );
@@ -35,18 +36,18 @@ exports.create_a_user = ( req, res ) => {
     }
 };
 
-exports.sign_in = ( req, res ) => {
+exports.sign_in = function( req, res ) {
     User.findOne( { username : req.body.username.toLowerCase() } )
-        .then( user => {
+        .then( function(user) {
             if( !user ){
                 res.status(401).send( { success: false, msg: 'Authentication failed. Invalid Username of Password.'} );
             } else {
-                user.comparePassword( req.body.password, ( err, isMatch ) => {
+                user.comparePassword( req.body.password, function( err, isMatch ) {
                     if( isMatch && !err ){
-                        const token = jwt.sign( user.toJson(), config.secret );
+                        const token = jwt.sign( user.toJSON(), config.secret );
 
                         User.findOne({ username: req.body.username.toLowerCase() })
-                            .then( ( user ) => {
+                            .then( function( user ) {
                                 res.json({
                                     success: true,
                                     token: `JWT ${token}`,
