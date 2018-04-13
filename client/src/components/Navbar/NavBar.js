@@ -6,8 +6,6 @@ export default class Navbar extends Component {
 
     constructor(props){
         super(props);
-
-        this.onTitleClick = this.onTitleClick.bind(this);
     }
 
     render(){
