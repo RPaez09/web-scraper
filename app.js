@@ -3,6 +3,7 @@ const bodyParser    = require('body-parser');
 const morgan        = require('morgan');
 const mongoose      = require('mongoose');
 const routes        = require('./routes/routes');
+const passport      = require('passport');
 
 const config        = require('./config/config');
 
@@ -26,6 +27,7 @@ app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
     next();
   });
+app.use(passport.initialize());
 
 routes(app);
 
