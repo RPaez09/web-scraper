@@ -6,7 +6,7 @@ import './App.css';
 
 import AppBar from 'material-ui/AppBar';
 
-import Home from './components/Home/Home';
+import Main from './components/main';
 
 const muiTheme = getMuiTheme({
   palette: {
@@ -22,7 +22,7 @@ class App extends Component {
             <AppBar
                 title="Hacker News"
                 iconClassNameRight="muidocs-icon-navigation-expand-more" />
-            <Home />
+            <Main />
           </React.Fragment>
         </MuiThemeProvider>
       </div>
