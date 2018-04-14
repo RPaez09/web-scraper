@@ -44,7 +44,7 @@ exports.sign_in = function( req, res ) {
             } else {
                 user.comparePassword( req.body.password, function( err, isMatch ) {
                     if( isMatch && !err ){
-                        const token = jwt.sign( user.toJSON(), config.secret );
+                        const token = jwt.sign( user.toJSON(), process.env.JWT_SECRET );
 
                         User.findOne({ username: req.body.username.toLowerCase() })
                             .then( function( user ) {
