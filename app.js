@@ -5,7 +5,7 @@ const mongoose      = require('mongoose');
 const routes        = require('./routes/routes');
 const passport      = require('passport');
 
-const config        = require('./config/config');
+require('dotenv').config()
 
 const app           = express();
 
@@ -15,13 +15,13 @@ const hackerFetch   = require('./helpers/hackerFetch');
 
 //DB
 mongoose.Promise = global.Promise;
-mongoose.connect(config.db);
+mongoose.connect(process.env.DB_CONNECTION_STRING);
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", config.url + ':3000' );
+    res.header("Access-Control-Allow-Origin", process.env.CLIENT_URL );
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     res.header("Access-Control-Allow-Credentials", true);
     res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
