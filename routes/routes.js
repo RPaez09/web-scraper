@@ -1,5 +1,6 @@
-const articles = require('../controllers/article-controller');
-const users = require('../controllers/user-controller');
+const articles  = require('../controllers/article-controller');
+const users     = require('../controllers/user-controller');
+const comments  = require('../controllers/comment-controller');
 
 module.exports = ( app ) => {
     app.route('/api/articles')
@@ -10,4 +11,10 @@ module.exports = ( app ) => {
 
     app.route('/api/user/signin')
         .post( users.sign_in );
+
+    app.route('/api/comments/')
+        .post( comments.create_a_comment );
+
+    app.route('/api/comments/:articleId')
+        .get( comments.get_comments_by_article );
 };
