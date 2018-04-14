@@ -6,10 +6,6 @@ const routes        = require('./routes/routes');
 const passport      = require('passport');
 
 require('dotenv').config()
-<<<<<<< HEAD
-=======
-const config        = require('./config/config');
->>>>>>> 88583defc895105118a35dae3e0215c7b937a977
 
 const app           = express();
 
