@@ -13,13 +13,42 @@ const muiTheme = getMuiTheme({
 });
 
 class App extends Component {
+
+  constructor(props){
+    super(props);
+
+    this.state = {
+      user: {
+        isLoggedIn: false,
+        email: '',
+        id: '',
+        username: '',
+        token: ''
+      }
+    }
+  }
+
+  onLoginSuccess = (user, token) => {
+    this.setState({
+      user: {
+        ...this.state.user,
+          isLoggedIn: true,
+          username: user.username,
+          email: user.email,
+          id: user.id,
+          token: token
+      }
+    });
+  }
+
   render() {
     return (
       <div className="App">
         <MuiThemeProvider muiTheme={muiTheme}>
           <React.Fragment>
             <Navbar />
-            <Main />
+            <Main user={this.state.user} 
+                  onLoginSuccess={this.onLoginSuccess} />
           </React.Fragment>
         </MuiThemeProvider>
       </div>
