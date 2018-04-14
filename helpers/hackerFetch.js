@@ -47,7 +47,11 @@ const scrapeArticles = () => {
                 let link = result.children[4].children[0].attribs.href;
                 let context = `${url}item?id=${result.attribs.id}`;
                 let isInternal = false;
-                let domain = parseDomain(link);
+                if(link){
+                    let domain = parseDomain(link);
+                } else {
+                    let domain = link;
+                }
 
                 if( link.startsWith("item?id=") ){ //if it's an internal hackernews link
                     link = context; 
@@ -82,6 +86,7 @@ const fetchArticles = () => {
                                 .then( ( article ) => {
                                     console.log(`Article Created: ${article.id} | "${article.title}"`);
                                 })
+                                .catch( error => console.log(`Articlefetch Error: ${error}`) );
                         }
                     })
                     .catch( error => console.log(`Error: ${error}`) )
