@@ -16,6 +16,7 @@ const LoginForm = (props) => {
     return (
         <form>
             <TextField
+                autoFocus
                 floatingLabelText="Username"
                 onChange={props.onUsernameChange}
                 errorText={props.usernameError} />
