@@ -47,11 +47,7 @@ const scrapeArticles = () => {
                 let link = result.children[4].children[0].attribs.href;
                 let context = `${url}item?id=${result.attribs.id}`;
                 let isInternal = false;
-                if(link){
-                    let domain = parseDomain(link);
-                } else {
-                    let domain = link;
-                }
+                let domain = parseDomain(link);
 
                 if( link.startsWith("item?id=") ){ //if it's an internal hackernews link
                     link = context; 
