@@ -6,6 +6,9 @@ module.exports = ( app ) => {
     app.route('/api/articles')
         .get( articles.list_all_articles );
 
+    app.route('/api/articles/:id')
+        .get( articles.get_an_article );
+
     app.route('/api/user/signup')
         .post( users.create_a_user );
 
