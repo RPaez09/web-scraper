@@ -34,9 +34,11 @@ const LoginForm = (props) => {
                 style={loginBtnStyles}
                 onClick={props.onSubmit}
                 disabled={props.submitBtnDisabled} /> or 
-            <RaisedButton 
-                label="Sign Up"
-                style={signUpBtnStyles}/>
+            <a href="/signup">
+                <RaisedButton 
+                    label="Sign Up"
+                    style={signUpBtnStyles}/>
+            </a>
         </form>
     );
 }
