@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 
 import Home from './Home/Home';
 import Login from './Login/Login';
+import ArticleDetail from './ArticleDetail/ArticleDetail';
 
 export default class Main extends Component {
     render(){
@@ -13,6 +14,7 @@ export default class Main extends Component {
                     <Route exact path="/login" render={()=> (
                         <Login  user={this.props.user}
                                 onLoginSuccess={this.props.onLoginSuccess} />)} />
+                    <Route exact path="/article/:id" component={ArticleDetail} />
                 </Switch>
             </main>
         )
