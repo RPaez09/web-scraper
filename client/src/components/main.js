@@ -6,10 +6,14 @@ import Login from './Login/Login';
 import Signup from './Signup/Signup';
 import ArticleDetail from './ArticleDetail/ArticleDetail';
 
+const mainStyles = {
+    paddingTop: '80px'
+}
+
 export default class Main extends Component {
     render(){
         return (
-            <main>
+            <main style={mainStyles}>
                 <Switch>
                     <Route exact path="/" component={Home}/>
                     

@@ -6,6 +6,10 @@ import { Link } from 'react-router-dom';
 import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
 
+const NavbarStyles = {
+    position: "fixed"
+}
+
 const TitleStyles = {
     cursor: "pointer",
     marginLeft: "0",
@@ -22,6 +26,7 @@ const Navbar = ( { history } ) => {
         <AppBar
             title={<span> Hacker News</span>}
             showMenuIconButton={false}
+            style={NavbarStyles}
             titleStyle={TitleStyles}
             onTitleClick={() => history.push('/')}
             iconElementRight={<Link to="/login"><FlatButton label="Login" style={LoginStyles} /></Link>} />
