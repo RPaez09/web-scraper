@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import Title from './title';
 import Paper from 'material-ui/Paper';
 
+import API from '../../api';
+
 const style = {
     width: "80vw",
     margin: 20,
@@ -13,8 +15,6 @@ export default class ArticleDetail extends Component {
 
     constructor(props){
         super(props);
-
-        console.log(props.match.params.id);
 
         this.state = {
             title: {
@@ -29,7 +29,15 @@ export default class ArticleDetail extends Component {
     }
 
     componentDidMount(){
-        //fetch article info.
+        API.get(`/api/articles/${this.props.match.params.id}`)
+            .then( response => this.setState(
+                { title: 
+                    { ...this.state.title, 
+                        isLoading: false,
+                        article: response.data  
+                    } 
+                }) )
+            .catch( error => console.log( error ) )
         //fetch article comments.
     }
 
