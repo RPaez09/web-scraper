@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 
-import Title from './title';
 import Paper from 'material-ui/Paper';
+
+import Title from './title';
+import CommentList from './commentList';
 
 import API from '../../api';
 
 const style = {
     width: "80vw",
-    margin: 20,
-    display: 'inline-block'
+    margin: '0 auto',
+    paddingBottom: '30px',
+    textAlign: 'left'
 };
 
 export default class ArticleDetail extends Component {
@@ -29,7 +32,7 @@ export default class ArticleDetail extends Component {
     }
 
     componentDidMount(){
-        API.get(`/api/articles/${this.props.match.params.id}`)
+        API.get(`/api/articles/${this.props.match.params.id}`) //Get main article details
             .then( response => this.setState(
                 { title: 
                     { ...this.state.title, 
@@ -38,16 +41,32 @@ export default class ArticleDetail extends Component {
                     } 
                 }) )
             .catch( error => console.log( error ) )
-        //fetch article comments.
+       
+        API.get(`/api/comments/${this.props.match.params.id}`) //Get comments
+            .then( response => this.setState(
+                { commentList:
+                    { ...this.state.commentList,
+                        isLoading: false,
+                        comments: response.data
+                    }
+                }) )
+            .catch( error => console.log( error ) )
     }
 
     render(){
         return (
-            <Paper style={style}>
-                <Title 
-                    isLoading={this.state.title.isLoading} 
-                    article={this.state.title.article} />
-            </Paper>
+            <React.Fragment>
+                <Paper style={style} zDepth={0}>
+                    <Title 
+                        isLoading={this.state.title.isLoading} 
+                        article={this.state.title.article} />
+                </Paper>
+                <Paper style={style} zDepth={0}>
+                    <CommentList 
+                        isLoading={this.state.commentList.isLoading}
+                        comments={this.state.commentList.comments}/>
+                </Paper>
+            </React.Fragment>
         )
     }
 }
