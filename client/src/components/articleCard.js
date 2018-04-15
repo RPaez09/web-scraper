@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
+import { Link } from 'react-router-dom';
 
 const styles = {
     card: {
@@ -43,7 +44,7 @@ const ArticleCard = (props) => (
         />
         <CardActions style={styles.cardActions}>
             <FlatButton href={props.article.context} target="_blank" label="Context" />
-            <FlatButton label="Comments" />
+            <Link to={`/article/${props.article.id}`}><FlatButton label="Comments" /></Link>
         </CardActions>
         <CardText></CardText>
     </Card> 
