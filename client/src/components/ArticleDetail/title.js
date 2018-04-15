@@ -37,7 +37,10 @@ const subTitle = (link, domain) => {
 
 const title = (props) => {
     if( props.isLoading ){
-        return (<CircularProgress size={80} thickness={5} />)
+        return (
+        <Card>
+            <CircularProgress size={60} thickness={5} />
+        </Card>)
     } else {
         return (
         <Card>
