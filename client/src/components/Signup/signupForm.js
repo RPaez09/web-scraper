@@ -2,6 +2,7 @@ import React from 'react';
 
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import { Link } from 'react-router-dom';
 
 const loginBtnStyles = {
     marginTop: "50px",
@@ -46,11 +47,11 @@ const SignupForm = (props) => {
                 style={signUpBtnStyles}
                 onClick={props.onSubmit}
                 disabled={props.submitBtnDisabled}/> or 
-            <a href="/login">
+            <Link to="/login">
                 <RaisedButton 
                     label="Login"
                     style={loginBtnStyles}/>
-            </a>
+            </Link>
         </form>
     )
 }
