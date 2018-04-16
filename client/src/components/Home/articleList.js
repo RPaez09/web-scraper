@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Paper from 'material-ui/Paper';
-import ArticleCard from '../articleCard';
+import ArticleCard from './articleCard';
 
 const style = {
     width: "80vw",
