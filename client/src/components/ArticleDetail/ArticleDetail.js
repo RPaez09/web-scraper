@@ -4,6 +4,7 @@ import Paper from 'material-ui/Paper';
 
 import Title from './title';
 import CommentList from './commentList';
+import CommentBox from './CommentBox/commentBox';
 
 import API from '../../api';
 
@@ -65,6 +66,9 @@ export default class ArticleDetail extends Component {
                     <CommentList 
                         isLoading={this.state.commentList.isLoading}
                         comments={this.state.commentList.comments}/>
+                </Paper>
+                <Paper style={style} zDepth={0}>
+                    <CommentBox user={this.props.user} />
                 </Paper>
             </React.Fragment>
         )

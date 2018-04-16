@@ -25,7 +25,8 @@ export default class Main extends Component {
                         <Signup user={this.props.user}
                                 onLoginSuccess={this.props.onLoginSuccess} />)} />
                     
-                    <Route exact path="/article/:id" component={ArticleDetail} />
+                    <Route exact path="/article/:id" render={(props)=> (
+                        <ArticleDetail {...props} user={this.props.user} />)} />
                 </Switch>
             </main>
         )
