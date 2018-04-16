@@ -46,7 +46,7 @@ class App extends Component {
       <div className="App">
         <MuiThemeProvider muiTheme={muiTheme}>
           <React.Fragment>
-            <Navbar />
+            <Navbar user={this.state.user} />
             <Main user={this.state.user} 
                   onLoginSuccess={this.onLoginSuccess} />
           </React.Fragment>

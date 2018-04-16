@@ -1,10 +1,9 @@
 import React from 'react';
 
 import { withRouter } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 
 import AppBar from 'material-ui/AppBar';
-import FlatButton from 'material-ui/FlatButton';
+import RightButton from './rightButton';
 
 const NavbarStyles = {
     position: "fixed"
@@ -16,12 +15,7 @@ const TitleStyles = {
     flex: "none"
 };
 
-const LoginStyles = {
-    color: "#FFFFFF",
-    marginTop: "5px"
-}
-
-const Navbar = ( { history } ) => {
+const Navbar = ( { history, user } ) => {
     return (
         <AppBar
             title={<span> Hacker News</span>}
@@ -29,7 +23,7 @@ const Navbar = ( { history } ) => {
             style={NavbarStyles}
             titleStyle={TitleStyles}
             onTitleClick={() => history.push('/')}
-            iconElementRight={<Link to="/login"><FlatButton label="Login" style={LoginStyles} /></Link>} />
+            iconElementRight={<RightButton user={user} />} />
     )
 }
 
