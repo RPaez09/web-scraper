@@ -26,7 +26,7 @@ class App extends Component {
         token: ''
       }
     }
-  }
+  };
 
   onLoginSuccess = (user, token) => {
     this.setState({
@@ -39,14 +39,29 @@ class App extends Component {
           token: token
       }
     });
-  }
+  };
+
+  onLogout = () => {
+    this.setState({
+      user: {
+        ...this.state.user,
+        isLoggedIn: false,
+        username: '',
+        email: '',
+        id: '',
+        token: ''
+      }
+    });
+  };
 
   render() {
     return (
       <div className="App">
         <MuiThemeProvider muiTheme={muiTheme}>
           <React.Fragment>
-            <Navbar user={this.state.user} />
+            <Navbar 
+              user={this.state.user}
+              onLogout={this.onLogout} />
             <Main user={this.state.user} 
                   onLoginSuccess={this.onLoginSuccess} />
           </React.Fragment>
@@ -54,6 +69,6 @@ class App extends Component {
       </div>
     );
   }
-}
+};
 
 export default App;

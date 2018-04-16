@@ -15,7 +15,7 @@ const TitleStyles = {
     flex: "none"
 };
 
-const Navbar = ( { history, user } ) => {
+const Navbar = ( { history, user, onLogout } ) => {
     return (
         <AppBar
             title={<span> Hacker News</span>}
@@ -23,7 +23,9 @@ const Navbar = ( { history, user } ) => {
             style={NavbarStyles}
             titleStyle={TitleStyles}
             onTitleClick={() => history.push('/')}
-            iconElementRight={<RightButton user={user} />} />
+            iconElementRight={<RightButton 
+                                user={user}
+                                onLogout={onLogout} />} />
     )
 }
 
