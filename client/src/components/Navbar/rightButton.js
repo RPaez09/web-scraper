@@ -4,14 +4,15 @@ import { Link } from 'react-router-dom';
 
 import FlatButton from 'material-ui/FlatButton';
 
-const LoginStyles = {
+const style = {
     color: "#FFFFFF",
     marginTop: "5px"
 }
 
 const RightButton = (props) => {
     return (
-        <Link to="/login"><FlatButton label="Login" style={LoginStyles} /></Link>
+        (!props.user.isLoggedIn)? <Link to="/login"><FlatButton label="Login" style={style} /></Link> 
+                                : <FlatButton label={props.user.username} style={style} />
     )
 };
 
