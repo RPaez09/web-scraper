@@ -12,8 +12,14 @@ const styles = {
         textAlign: 'left',
         paddingRight: '15px'
     },
+    title: {
+        color: 'rgba(0, 0, 0, 0.87)',
+        fontSize: '15px',
+        textDecoration: 'none'
+    },
     subTitle: {
         color: 'rgba(0, 0, 0, 0.54)',
+        marginTop: '10px',
         display: 'block',
         fontSize: '14px',
         textDecoration: 'none'
@@ -38,7 +44,7 @@ const subTitle = (link, domain) => {
 const ArticleCard = (props) => (
     <Card style={styles.card}>
         <CardHeader
-            title={props.article.title}
+            title={<a href={props.article.link} target="_blank" style={styles.title}>{props.article.title}</a>}
             subtitle={subTitle(props.article.link, props.article.domain)}
             style={styles.cardHeader}
         />
