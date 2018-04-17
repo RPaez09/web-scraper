@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const comment = require('../models/comment-model');
+const jwt = require('jsonwebtoken');
+const getToken = require('../helpers/getToken');
 
 exports.get_comments_by_article = ( req, res ) => {
     comment.find({ articleId: req.params.articleId })
@@ -11,7 +13,29 @@ exports.get_comments_by_article = ( req, res ) => {
 };
 
 exports.create_a_comment = ( req, res ) => {
-    comment.create( req.body )
-        .then( comment => res.send(comment) )
-        .catch( error => console.log( `Error: ${error}` ) );
+    const token = getToken( req.headers );
+
+    if( token ){
+
+        user = jwt.verify( token, process.env.JWT_SECRET );
+
+        if( user._id === req.body.userID ){
+            let newComment = {
+                articleId: req.body.articleId,
+                username: user.username,
+                userID: user._id,
+                text: req.body.text
+            };
+
+            comment.create( req.body )
+                .then( comment => res.send(comment) )
+                .catch( error => console.log( `Error: ${error}` ) );
+
+        } else {
+            res.status(403).send( { success: false, msg: 'Unauthorized' } );
+        }
+
+    } else {
+        res.status(403).send( { success: false, msg: 'Unauthorized' } );
+    }
 };
