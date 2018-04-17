@@ -27,7 +27,7 @@ export default class ArticleDetail extends Component {
             },
             commentList: {
                 isLoading: true,
-                comments: null
+                comments: []
             }
         }
     }
@@ -54,6 +54,32 @@ export default class ArticleDetail extends Component {
             .catch( error => console.log( error ) )
     }
 
+    onSubmitComment = ( commentText ) => {
+        let newComment = {
+            articleId : this.props.match.params.id,
+            username : this.props.user.username,
+            userID : this.props.user.id,
+            text : commentText
+        }
+
+        let options = {
+            headers : { authorization : this.props.user.token }
+        }
+
+        API.post('/api/comments', newComment, options )
+            .then( response => {
+                if( response.status === 200 ){
+                    this.setState(
+                        { commentList: {
+                            ...this.state.commentList,
+                            comments: this.state.commentList.comments.concat( response.data )
+                        }
+                        });
+                }
+            })
+            .catch( error => console.log(`Error : ${error}`) );
+    }
+
     render(){
         return (
             <React.Fragment>
@@ -68,7 +94,9 @@ export default class ArticleDetail extends Component {
                         comments={this.state.commentList.comments}/>
                 </Paper>
                 <Paper style={style} zDepth={0}>
-                    <CommentBox user={this.props.user} />
+                    <CommentBox 
+                        user={this.props.user}
+                        onSubmit={this.onSubmitComment} />
                 </Paper>
             </React.Fragment>
         )
