@@ -21,15 +21,38 @@ export default class CommentBox extends Component {
         this.state = {
             isValid : false,
             errorMsg : '',
-            length : '',
+            length : 0,
             value : ''
         }
     };
 
     onChange = (e) => {
-        this.setState({
-            value: e.target.value
-        });
+        if( e.target.value.length === 0 ){
+            this.setState({
+                value : e.target.value,
+                errorMsg : '',
+                isValid : false,
+                length : e.target.value.length
+            });
+        } else if ( e.target.value.length <= 700 ) {
+            this.setState({
+                value: e.target.value,
+                errorMsg : '',
+                isValid : true,
+                length : e.target.value.length
+            });
+        } else {
+            this.setState({
+                value : e.target.value,
+                errorMsg : 'Your comment is too long.',
+                isValid : false,
+                length : e.target.value.length
+            });
+        }
+    }
+
+    onSubmit = () => {
+        if( this.state.isValid ){ this.props.onSubmit(this.state.value); }
     }
 
     render(){
@@ -43,10 +66,12 @@ export default class CommentBox extends Component {
                 rowsMax={6}
                 style={style.commentBox}
                 value={this.state.value}
+                errorText={this.state.errorMsg}
                 onChange={this.onChange} /><br />
             <RaisedButton 
                 label="Submit Comment"
-                disabled={true}
+                onClick={this.onSubmit}
+                disabled={!this.state.isValid}
                 primary={true} 
                 fullWidth={true} />
           </Card> 
