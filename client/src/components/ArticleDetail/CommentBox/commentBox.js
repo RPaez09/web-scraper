@@ -52,7 +52,15 @@ export default class CommentBox extends Component {
     }
 
     onSubmit = () => {
-        if( this.state.isValid ){ this.props.onSubmit(this.state.value); }
+        if( this.state.isValid ){ 
+            this.props.onSubmit(this.state.value); 
+            this.setState({
+                value : '',
+                errorMsg : '',
+                isValid : false,
+                length : 0
+            });
+        }
     }
 
     render(){
