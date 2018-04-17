@@ -10,6 +10,10 @@ const commentSchema = new Schema({
         type: String,
         required: 'A username is required.'
     },
+    userID: {
+        type: String,
+        required: 'A userId is required.'
+    },
     text: {
         type: String,
         required: 'A comment is required.'
