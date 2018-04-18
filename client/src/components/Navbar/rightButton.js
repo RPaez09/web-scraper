@@ -11,6 +11,10 @@ const style = {
     marginTop: "5px"
 };
 
+const linkStyle = {
+    textDecoration: 'none'
+};
+
 export default class RightButton extends Component {
 
     constructor(props){
@@ -28,9 +32,8 @@ export default class RightButton extends Component {
                                                     iconButtonElement={<FlatButton label={this.props.user.username} style={style} />}
                                                     open={this.state.openMenu}
                                                     onRequestChange={this.handleOnRequestChange} >
-                                                    <MenuItem 
-                                                        disabled={true} 
-                                                        primaryText="Saved Articles"/>
+                                                    <Link to="/saved" style={linkStyle}><MenuItem
+                                                        primaryText="Saved Articles"/></Link>
                                                     <MenuItem 
                                                         primaryText="Logout"
                                                         onClick={this.props.onLogout} />
