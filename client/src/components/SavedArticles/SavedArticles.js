@@ -3,8 +3,16 @@ import { Redirect } from 'react-router';
 
 import ArticleList from '../Home/articleList';
 import CircularProgress from 'material-ui/CircularProgress';
+import Paper from 'material-ui/Paper';
 
 import API from '../../api';
+
+const style = {
+    width: "80vw",
+    margin: 20,
+    padding: 20,
+    display: 'inline-block'
+};
 
 export default class SavedArticles extends Component {
 
@@ -37,7 +45,8 @@ export default class SavedArticles extends Component {
         return (
         <React.Fragment>
             { !this.props.user.isLoggedIn && <Redirect to="/" push /> }
-            { (this.state.isLoading) ? <CircularProgress size={80} thickness={5} /> : <ArticleList articles={this.state.articles} user={this.props.user}/>}
+            { (this.state.isLoading) ? <CircularProgress size={80} thickness={5} /> : 
+             this.state.articles.length === 0  ? <Paper style={style}>No saved articles</Paper> : <ArticleList articles={this.state.articles} user={this.props.user}/>}
         </React.Fragment>)
     }
 }
