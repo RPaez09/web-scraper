@@ -31,7 +31,8 @@ export default class RightButton extends Component {
                                             : <IconMenu
                                                     iconButtonElement={<FlatButton label={this.props.user.username} style={style} />}
                                                     open={this.state.openMenu}
-                                                    onRequestChange={this.handleOnRequestChange} >
+                                                    onRequestChange={this.handleOnRequestChange}
+                                                    targetOrigin={{horizontal: 'left', vertical: 'bottom'}} >
                                                     <Link to="/saved" style={linkStyle}><MenuItem
                                                         primaryText="Saved Articles"/></Link>
                                                     <MenuItem 
