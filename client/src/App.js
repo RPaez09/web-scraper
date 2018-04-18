@@ -23,12 +23,13 @@ class App extends Component {
         email: '',
         id: '',
         username: '',
-        token: ''
+        token: '',
+        favorites: []
       }
     }
   };
 
-  onLoginSuccess = (user, token) => {
+  onLoginSuccess = (user, token, favorites) => {
     this.setState({
       user: {
         ...this.state.user,
@@ -36,7 +37,8 @@ class App extends Component {
           username: user.username,
           email: user.email,
           id: user.id,
-          token: token
+          token: token,
+          favorites: favorites
       }
     });
   };
@@ -49,7 +51,17 @@ class App extends Component {
         username: '',
         email: '',
         id: '',
-        token: ''
+        token: '',
+        favorites: []
+      }
+    });
+  };
+
+  handleSave = ( articleID ) => {
+    this.setState({
+      user: {
+        ...this.state.user,
+        favorites: this.state.user.favorites.concat( articleID )
       }
     });
   };
@@ -63,7 +75,8 @@ class App extends Component {
               user={this.state.user}
               onLogout={this.onLogout} />
             <Main user={this.state.user} 
-                  onLoginSuccess={this.onLoginSuccess} />
+                  onLoginSuccess={this.onLoginSuccess}
+                  handleSave={this.handleSave} />
           </React.Fragment>
         </MuiThemeProvider>
       </div>
