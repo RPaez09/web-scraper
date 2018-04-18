@@ -172,7 +172,14 @@ export default class Signup extends Component {
                         if( response.data.success ){
                             API.post('/api/user/signin', credentials)
                                 .then( reply => {
-                                    this.props.onLoginSuccess( reply.data.user, reply.data.token );
+                                    let options = { headers: { authorization: reply.data.token } };
+
+                                    API.get(`/api/favorites/${reply.data.user.id}`, options)
+                                        .then( favorites => {
+                                            let parsedFavorites = favorites.data.map( article => article._id );
+                                            this.props.onLoginSuccess( reply.data.user, reply.data.token, parsedFavorites );
+                                        })
+                                        .catch( error => console.log( error ) )
                                 })
                                 .catch( error => console.log(error) );
                         } else {
