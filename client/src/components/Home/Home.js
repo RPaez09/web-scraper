@@ -36,7 +36,7 @@ export default class Home extends Component {
             }
             API.post('/api/favorites/new', body, options )
                 .then( response => {
-                    console.log(this);
+                    
                     this.props.handleSave( response.data.articleID );
                     this.setState({
                         snackbar : {
