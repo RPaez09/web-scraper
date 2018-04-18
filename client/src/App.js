@@ -29,6 +29,16 @@ class App extends Component {
     }
   };
 
+  componentDidMount(){
+    let user = sessionStorage.getItem("hn-user");
+
+    if( user ){
+      this.setState({
+        user: JSON.parse(user)
+      });
+    }
+  }
+
   onLoginSuccess = (user, token, favorites) => {
     this.setState({
       user: {
@@ -41,6 +51,8 @@ class App extends Component {
           favorites: favorites
       }
     });
+
+    sessionStorage.setItem("hn-user", JSON.stringify( this.state.user ));
   };
 
   onLogout = () => {
@@ -55,6 +67,8 @@ class App extends Component {
         favorites: []
       }
     });
+
+    sessionStorage.removeItem("hn-user");
   };
 
   handleSave = ( articleID ) => {
