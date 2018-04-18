@@ -92,7 +92,17 @@ export default class Login extends Component {
                 .then( ( response ) => {
 
                     if( response.data.success ){
-                        this.props.onLoginSuccess( response.data.user, response.data.token )
+                        let options = { headers: { authorization: response.data.token } };
+
+                        API.get(`/api/favorites/${response.data.user.id}`, options)
+                            .then( favorites => {
+                                let parsedFavorites = favorites.data.map( article => article.articleID );
+                                this.props.onLoginSuccess( response.data.user, response.data.token, parsedFavorites ) 
+                            })
+                            .catch( error => {
+                                console.log(error);
+                            });
+
                     } else {
                         this.setState({
                             submitBtnDisabled : false,
