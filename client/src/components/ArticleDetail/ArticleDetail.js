@@ -34,13 +34,19 @@ export default class ArticleDetail extends Component {
 
     componentDidMount(){
         API.get(`/api/articles/${this.props.match.params.id}`) //Get main article details
-            .then( response => this.setState(
-                { title: 
-                    { ...this.state.title, 
-                        isLoading: false,
-                        article: response.data  
-                    } 
-                }) )
+            .then( response => {
+                if( response.data === "" ){
+                    console.log('Error, article not found')
+                } else {
+                    this.setState(
+                        { title: 
+                            { ...this.state.title, 
+                                isLoading: false,
+                                article: response.data  
+                            }
+                        });
+                }
+            })
             .catch( error => console.log( error ) )
        
         API.get(`/api/comments/${this.props.match.params.id}`) //Get comments
@@ -96,7 +102,8 @@ export default class ArticleDetail extends Component {
                 <Paper style={style} zDepth={0}>
                     <CommentBox 
                         user={this.props.user}
-                        onSubmit={this.onSubmitComment} />
+                        onSubmit={this.onSubmitComment}
+                        disabled={this.state.title.isLoading} />
                 </Paper>
             </React.Fragment>
         )
