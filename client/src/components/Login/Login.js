@@ -96,7 +96,7 @@ export default class Login extends Component {
 
                         API.get(`/api/favorites/${response.data.user.id}`, options)
                             .then( favorites => {
-                                let parsedFavorites = favorites.data.map( article => article.articleID );
+                                let parsedFavorites = favorites.data.map( article => article._id );
                                 this.props.onLoginSuccess( response.data.user, response.data.token, parsedFavorites ) 
                             })
                             .catch( error => {
