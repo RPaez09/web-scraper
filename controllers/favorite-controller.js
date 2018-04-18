@@ -1,5 +1,6 @@
 const mongoose  = require('mongoose');
 const favorite  = require('../models/favorite-model');
+const article   = require('../models/article-model');
 const jwt       = require('jsonwebtoken');
 const getToken  = require('../helpers/getToken');
 
@@ -13,8 +14,19 @@ exports.get_user_favorites = ( req, res ) => {
         if( user._id === req.params.userID ){
             favorite.find({ userID: user._id })
                 .sort({ date: -1 })
-                .then( favorites => res.send( favorites ) )
-                .catch( error => console.log( `Error: ${error}` ) );
+                .then( favorites => {
+                    let articleCue = [];
+                    let foundArticles = [];
+
+                    for( let i = 0; i < favorites.length; i++){
+                        articleCue.push( article.findById( favorites[i].articleID ) );
+                    }
+
+                    Promise.all( articleCue )
+                        .then( articles =>  res.send( articles ) )
+                        .catch( error => console.log(error) );
+                        
+                    }) .catch( error => console.log( `Error: ${error}` ) );
         } else {
             res.status(403).send( { success: false, msg: 'Unauthorized' } );
         }
