@@ -15,7 +15,9 @@ export default class Main extends Component {
         return (
             <main style={mainStyles}>
                 <Switch>
-                    <Route exact path="/" component={Home}/>
+                    <Route exact path="/" render={() => (
+                        <Home   user={this.props.user}
+                                handleSave={this.props.handleSave}/> )} />
                     
                     <Route exact path="/login" render={()=> (
                         <Login  user={this.props.user}
