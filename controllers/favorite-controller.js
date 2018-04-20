@@ -60,21 +60,23 @@ exports.remove_a_favorite = ( req, res ) => {
 
     if( token ){ // do they have a token at all
 
-        user = jwt.verify( token, process.env.JWT_SECRET );
+        const user = jwt.verify( token, process.env.JWT_SECRET );
 
-        favorite.findById( req.body._id )
-            .then( result => {
-                if( result.userID === user._id ){ // if this favorite belongs to you
+        if( user._id === req.body.userID ){
+            let oldFavorite;
 
-                    favorite.findByIdAndRemove( { _id: req.body._id } )
-                        .then( deletedFavorite => res.send( deletedFavorite ) )
-                        .catch( error => console.log( `Error: ${error}` ) );
-                
-                } else {
-                    res.status(403).send( { success: false, msg: 'Unauthorized' } ); // how dare you...
-                }
-            })
-            .catch( error => console.log( `Error: ${error}` ) );
+            article.findById( req.body.articleID )
+                .then( target => {
+                    oldFavorite = target;
+                    return userModel.findByIdAndUpdate( user._id, { $pull: { favorites: target._id  } } )
+                })
+                .then( response => res.send( oldFavorite ) )
+                .catch( error => console.log(error) );
+
+        } else {
+            res.status(403).send( { success: false, msg: 'Unauthorized' } );
+        }
+
     } else {
         res.status(403).send( { success: false, msg: 'Unauthorized' } );
     }
