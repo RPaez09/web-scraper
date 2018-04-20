@@ -10,24 +10,15 @@ exports.get_user_favorites = ( req, res ) => {
 
     if( token ){
 
-        user = jwt.verify( token, process.env.JWT_SECRET );
+        const user = jwt.verify( token, process.env.JWT_SECRET );
 
         if( user._id === req.params.userID ){
-            favorite.find({ userID: user._id })
-                .sort({ date: -1 })
-                .then( favorites => {
-                    let articleCue = [];
-                    let foundArticles = [];
 
-                    for( let i = 0; i < favorites.length; i++){
-                        articleCue.push( article.findById( favorites[i].articleID ) );
-                    }
+            userModel.findById( user._id, { favorites: 1 })
+                .populate('favorites')
+                .then( response => res.send( response.favorites ) )
+                .catch( error => console.log( error ) );
 
-                    Promise.all( articleCue )
-                        .then( articles =>  res.send( articles ) )
-                        .catch( error => console.log(error) );
-                        
-                    }) .catch( error => console.log( `Error: ${error}` ) );
         } else {
             res.status(403).send( { success: false, msg: 'Unauthorized' } );
         }
