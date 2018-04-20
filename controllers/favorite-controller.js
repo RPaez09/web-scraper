@@ -1,6 +1,7 @@
 const mongoose  = require('mongoose');
 const favorite  = require('../models/favorite-model');
 const article   = require('../models/article-model');
+const userModel = require('../models/user-model');
 const jwt       = require('jsonwebtoken');
 const getToken  = require('../helpers/getToken');
 
@@ -41,17 +42,19 @@ exports.add_a_favorite = ( req, res ) => {
 
     if( token ){
 
-        user = jwt.verify( token, process.env.JWT_SECRET );
+        const user = jwt.verify( token, process.env.JWT_SECRET );
 
         if( user._id === req.body.userID ){
-            let newFavorite = {
-                userID : user._id,
-                articleID : req.body.articleID
-            }
+            let favorite;
 
-            favorite.create( newFavorite )
-                .then( freshFavorite => res.send( freshFavorite ) )
-                .catch( error => console.log( `Error: ${error}` ) );
+            article.findById( req.body.articleID )
+                .then( newFavorite => {
+                    favorite = newFavorite;
+                    return  userModel.findByIdAndUpdate( user._id, { $push: { favorites: newFavorite } } )
+                })
+                .then( response => res.send( favorite ) )
+                .catch( error => console.log( error ) );
+
         } else {
             res.status(403).send( { success: false, msg: 'Unauthorized' } );
         }
