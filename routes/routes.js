@@ -25,7 +25,7 @@ module.exports = ( app ) => {
     app.route('/api/favorites/:userID')
         .get( favorites.get_user_favorites );
 
-    app.route('/api/favorites/new')
+    app.route('/api/favorites/add')
         .post( favorites.add_a_favorite );
 
     app.route('/api/favorites/remove')
