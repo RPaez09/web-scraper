@@ -34,10 +34,10 @@ export default class Home extends Component {
                 userID: this.props.user.id,
                 articleID: articleId,
             }
-            API.post('/api/favorites/new', body, options )
+            API.post('/api/favorites/add', body, options )
                 .then( response => {
                     
-                    this.props.handleSave( response.data.articleID );
+                    this.props.handleSave( response.data._id );
                     this.setState({
                         snackbar : {
                             ...this.state.snackbar,
