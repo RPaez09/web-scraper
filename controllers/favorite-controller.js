@@ -1,5 +1,4 @@
 const mongoose  = require('mongoose');
-const favorite  = require('../models/favorite-model');
 const article   = require('../models/article-model');
 const userModel = require('../models/user-model');
 const jwt       = require('jsonwebtoken');
