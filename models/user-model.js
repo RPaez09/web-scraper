@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt-nodejs');
 const mongoose = require('mongoose');
+const article = require('./article-model');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
@@ -17,6 +18,14 @@ const userSchema = new Schema({
     password: {
         type: String,
         required: 'A password is required'
+    },
+    joinDate: {
+        type: Date,
+        default: Date.now
+    },
+    favorites: {
+        type: [{ type: Schema.Types.ObjectId, ref: 'Article' }],
+        default: []
     }
 });
 
