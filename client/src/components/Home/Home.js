@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import SearchBox from './searchBox';
 import CircularProgress from 'material-ui/CircularProgress';
 import Snackbar from 'material-ui/Snackbar';
 import ArticleList from './articleList';
@@ -17,7 +18,8 @@ export default class Home extends Component {
             snackbar: {
                 open: false,
                 message: ''
-            }
+            },
+            search: ''
         };
     };
 
@@ -70,10 +72,28 @@ export default class Home extends Component {
         });
     };
 
+    handleSearchSubmit = (e) => {
+        e.preventDefault();
+        console.log(this.state.search);
+    }
+
+    handleSearchChange = (e) => {
+        this.setState({
+            search: e.target.value
+        });
+    }
+
     render(){
         return (
             <React.Fragment>
-                {(this.state.isLoading) ? <CircularProgress size={80} thickness={5} /> : <ArticleList articles={this.state.articles} user={this.props.user} handleSave={this.handleSave}></ArticleList>}
+                {(this.state.isLoading) ? <CircularProgress size={80} thickness={5} /> : 
+                <React.Fragment>
+                    <SearchBox 
+                        onSubmit={this.handleSearchSubmit}
+                        onSearchChange={this.handleSearchChange}
+                        text={this.state.search}/>
+                    <ArticleList articles={this.state.articles} user={this.props.user} handleSave={this.handleSave}></ArticleList>
+                </React.Fragment> }
                 <Snackbar 
                     open={this.state.snackbar.open}
                     message={this.state.snackbar.message}

@@ -7,7 +7,7 @@ const style = {
     width: "80vw",
     margin: 20,
     display: 'inline-block'
-  };
+};
 
 const ArticleList = (props) => {
     return (
