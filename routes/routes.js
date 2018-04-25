@@ -10,6 +10,9 @@ module.exports = ( app ) => {
     app.route('/api/articles/:id')
         .get( articles.get_an_article );
 
+    app.route('/api/articles/search/:title')
+        .get( articles.search_an_article );
+
     app.route('/api/user/signup')
         .post( users.create_a_user );
 

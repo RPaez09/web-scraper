@@ -26,3 +26,17 @@ exports.get_an_article = ( req, res ) => {
         })
         .catch( error => console.log( `Error: ${error}` ) );
 }
+
+exports.search_an_article = ( req, res ) => {
+    article.find({ title: { $regex: req.params.title, $options: 'ig' } })
+        .sort({_id: -1})
+        .limit(20)
+        .then( ( err, articles ) => {
+            if( err ) {
+                res.send( err );
+            } else{
+                res.send(articles);
+            }
+        })
+        .catch( err => console.log( err ));
+}
