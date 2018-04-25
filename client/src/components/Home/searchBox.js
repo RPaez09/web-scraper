@@ -25,6 +25,7 @@ export default class SearchBox extends Component{
                         label="Search"
                         type="submit"
                         primary={true}
+                        disabled={this.props.disabled}
                         fullWidth={true} />
                 </form>
             </Paper>

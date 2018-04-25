@@ -19,7 +19,8 @@ export default class Home extends Component {
                 open: false,
                 message: ''
             },
-            search: ''
+            search: '',
+            disabled: false
         };
     };
 
@@ -74,7 +75,28 @@ export default class Home extends Component {
 
     handleSearchSubmit = (e) => {
         e.preventDefault();
-        console.log(this.state.search);
+        if( this.state.search !== "" ){
+            API.get('/api/articles/search/' + this.state.search)
+                .then( response => {
+                    if( response.status === 200 ){
+                        this.setState({
+                            articles: response.data
+                        });
+                    }
+                })
+                .catch( error => {
+                    this.setState({
+                        snackbar: {
+                            open: true,
+                            message: error
+                        }
+                    });
+                });
+            this.setState({
+                search: "",
+                disabled: true
+            });
+        }
     }
 
     handleSearchChange = (e) => {
@@ -91,7 +113,8 @@ export default class Home extends Component {
                     <SearchBox 
                         onSubmit={this.handleSearchSubmit}
                         onSearchChange={this.handleSearchChange}
-                        text={this.state.search}/>
+                        text={this.state.search}
+                        disabled={this.state.disabled}/>
                     <ArticleList articles={this.state.articles} user={this.props.user} handleSave={this.handleSave}></ArticleList>
                 </React.Fragment> }
                 <Snackbar 
