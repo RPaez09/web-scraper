@@ -1,5 +1,10 @@
+body {
+  background-color: #333333;
+}
+
 .App {
   text-align: center;
+  background-color: #ffffff;
 }
 
 .App-logo {
@@ -20,6 +25,25 @@
 
 .App-intro {
   font-size: large;
+}
+
+.footer {
+  margin-top: 20px;
+  background: #333333;
+  color: #ffffff;
+  padding: 25px 0 25px 10vw;
+}
+
+.footer h4, .footer h2, .footer a {
+  font-weight: 400;
+  text-align: left;   
+}
+
+.footer a {
+  display: inherit;
+  text-align: left;
+  text-decoration: none;
+  color: #ffffff;
 }
 
 @keyframes App-logo-spin {

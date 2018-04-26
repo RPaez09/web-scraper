@@ -8,7 +8,8 @@ import ArticleDetail from './ArticleDetail/ArticleDetail';
 import SavedArticles from './SavedArticles/SavedArticles';
 
 const mainStyles = {
-    paddingTop: '80px'
+    paddingTop: '80px',
+    minHeight: '50vh'
 }
 
 export default class Main extends Component {

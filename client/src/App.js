@@ -6,6 +6,7 @@ import './App.css';
 
 import Navbar from './components/Navbar/NavBar';
 import Main from './components/main';
+import Footer from './components/Footer/Footer';
 
 const muiTheme = getMuiTheme({
   palette: {
@@ -91,6 +92,7 @@ class App extends Component {
             <Main user={this.state.user} 
                   onLoginSuccess={this.onLoginSuccess}
                   handleSave={this.handleSave} />
+            <Footer />
           </React.Fragment>
         </MuiThemeProvider>
       </div>
