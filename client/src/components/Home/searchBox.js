@@ -10,6 +10,10 @@ const style = {
     padding: '0 20px 15px 20px'
 };
 
+const secondButtonStyle = {
+    marginTop: "10px"
+}
+
 export default class SearchBox extends Component{
     render(){
         return (
@@ -27,6 +31,13 @@ export default class SearchBox extends Component{
                         primary={true}
                         disabled={this.props.disabled}
                         fullWidth={true} />
+                    {this.props.searchActive && 
+                    <RaisedButton 
+                        label="Clear Results"
+                        style={secondButtonStyle}
+                        secondary={true}
+                        fullWidth={true}
+                        onClick={this.props.onSearchClear}/>}
                 </form>
             </Paper>
         )

@@ -20,14 +20,13 @@ export default class Home extends Component {
                 message: ''
             },
             search: '',
-            disabled: false
+            disabled: false,
+            searchStatus: false
         };
     };
 
     componentDidMount(){
-        API.get('/api/articles')
-            .then( articles => this.setState({ articles: articles.data, isLoading: false }) )
-            .catch( error => console.log(error) )
+        this.getAllArticles();
     };
 
     handleSave = ( articleId ) => {
@@ -75,6 +74,9 @@ export default class Home extends Component {
 
     handleSearchSubmit = (e) => {
         e.preventDefault();
+
+        this.setState()
+
         if( this.state.search !== "" ){
             API.get('/api/articles/search/' + this.state.search)
                 .then( response => {
@@ -94,15 +96,26 @@ export default class Home extends Component {
                 });
             this.setState({
                 search: "",
-                disabled: true
+                disabled: false,
+                searchStatus: true
             });
         }
-    }
+    };
+
+    handleSearchClear = () => {
+        this.getAllArticles();
+    };
 
     handleSearchChange = (e) => {
         this.setState({
             search: e.target.value
         });
+    };
+
+    getAllArticles = () => {
+        API.get('/api/articles')
+        .then( articles => this.setState({ articles: articles.data, isLoading: false, searchStatus: false }) )
+        .catch( error => console.log(error) )
     }
 
     render(){
@@ -113,8 +126,10 @@ export default class Home extends Component {
                     <SearchBox 
                         onSubmit={this.handleSearchSubmit}
                         onSearchChange={this.handleSearchChange}
+                        onSearchClear={this.handleSearchClear}
                         text={this.state.search}
-                        disabled={this.state.disabled}/>
+                        disabled={this.state.disabled}
+                        searchActive={this.state.searchStatus}/>
                     <ArticleList articles={this.state.articles} user={this.props.user} handleSave={this.handleSave}></ArticleList>
                 </React.Fragment> }
                 <Snackbar 
