@@ -99,6 +99,43 @@ body {
     width: 95vw;
     margin: 10px auto;
   }
+
+  .article-header {
+    padding-top: 5px !important;
+  }
+
+  .article-header div {
+    padding-right: 0 !important;
+  }
+
+  .article-title {
+    font-size: 12px;
+  }
+
+  .article-actions {
+    right: 0;
+    padding-bottom: 0 !important;
+    padding-right:  0 !important;
+  }
+
+  .article-actions a,
+  .article-actions button {
+    min-width: 50px !important;
+    margin-left: 5px !important;
+    margin-right: 0 !important;
+  }
+
+  .article-actions a div span,
+  .article-actions button div span {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    font-size: 12px !important;
+  }
+
+  .article-subtitle {
+    bottom: 0;
+    font-size: 12px;
+  }
 }
 
 @keyframes App-logo-spin {
