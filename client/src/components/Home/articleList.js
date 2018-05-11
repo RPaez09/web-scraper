@@ -3,15 +3,9 @@ import React from 'react';
 import Paper from 'material-ui/Paper';
 import ArticleCard from './articleCard';
 
-const style = {
-    width: "80vw",
-    margin: 20,
-    display: 'inline-block'
-};
-
 const ArticleList = (props) => {
     return (
-        <Paper style={style}>
+        <Paper className="article-list">
             { props.articles && props.articles.map( article => ( 
                 <ArticleCard 
                     key={article.id}

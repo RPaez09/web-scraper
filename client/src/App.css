@@ -34,6 +34,41 @@ body {
   padding: 0 20px 15px 20px;
 }
 
+.article-list {
+  display: 'inline-block';
+  width: 80vw;
+  margin: 20px auto;
+}
+
+.article-card {
+  position: relative;
+  height: 80px
+}
+
+.article-header {
+  text-align: left;
+  padding-right: 15px;
+}
+
+.article-title {
+  color: rgba(0,0,0, 0.87);
+  font-size: 15px;
+  text-decoration: none;
+}
+
+.article-subtitle {
+  color: rgba(0,0,0, 0.54);
+  margin-top: 10px;
+  display: block;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.article-actions {
+  right: 15px;
+  bottom: 0;
+}
+
 .footer {
   margin-top: 20px;
   background: #333333;
@@ -58,6 +93,11 @@ body {
     width: 95vw;
     margin: 10px 0;
     padding: 0 20px 15px 20px;
+  }
+
+  .article-list {
+    width: 95vw;
+    margin: 10px auto;
   }
 }
 
