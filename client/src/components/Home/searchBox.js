@@ -3,13 +3,6 @@ import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 
-const style = {
-    width: "80vw",
-    margin: 20,
-    display: 'inline-block',
-    padding: '0 20px 15px 20px'
-};
-
 const secondButtonStyle = {
     marginTop: "10px"
 }
@@ -17,7 +10,7 @@ const secondButtonStyle = {
 export default class SearchBox extends Component{
     render(){
         return (
-            <Paper style={style}>
+            <Paper className="search-box">
                 <form
                     onSubmit={this.props.onSubmit}>
                     <TextField 
