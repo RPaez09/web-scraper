@@ -1,19 +1,6 @@
 const jwt       = require('jsonwebtoken');
 const User      = require('../models/user-model');
-const mongoos   = require('mongoose');
-
-const getToken = headers => {
-    if( headers && headers.authorization ){
-        const parted = headers.authorization.split(' ');
-        if( parted.length === 2 ) {
-            return parted[1];
-        } else {
-            return null;
-        }
-    } else {
-        return null;
-    }
-};
+const mongoose   = require('mongoose');
 
 exports.create_a_user = function( req, res ) {
     if( !req.body.username || !req.body.password ){
