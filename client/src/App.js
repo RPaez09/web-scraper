@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {deepOrange700} from 'material-ui/styles/colors';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import Snackbar from 'material-ui/Snackbar';
 import './App.css';
 
 import Navbar from './components/Navbar/NavBar';
@@ -26,6 +27,10 @@ class App extends Component {
         username: '',
         token: '',
         favorites: []
+      },
+      snackbar: {
+        open: false,
+        message: ''
       }
     }
   };
@@ -53,6 +58,8 @@ class App extends Component {
       }
     });
 
+    this.onSnackbarMessage(`Welcome to Hacker News ${user.username}!`);
+
     sessionStorage.setItem("hn-user", JSON.stringify( this.state.user ));
   };
 
@@ -69,7 +76,25 @@ class App extends Component {
       }
     });
 
+    this.onSnackbarMessage('You have been logged out, see you soon!');
+
     sessionStorage.removeItem("hn-user");
+  };
+
+  handleSnackbarClose = () => {
+    this.setState({ snackbar: {      
+      ...this.state.snackbar,
+      open: false,
+      message: ''
+    }});
+  };
+
+  onSnackbarMessage = message => {
+    this.setState({ snackbar: {
+      ...this.state.snackbar,
+      open: true,
+      message: message
+    }});
   };
 
   handleSave = ( articleID ) => {
@@ -93,6 +118,11 @@ class App extends Component {
                   onLoginSuccess={this.onLoginSuccess}
                   handleSave={this.handleSave} />
             <Footer />
+            <Snackbar 
+                  open={this.state.snackbar.open}
+                  message={this.state.snackbar.message}
+                  autoHideDuration={2000}
+                  onRequestClose={this.handleSnackbarClose}/>
           </React.Fragment>
         </MuiThemeProvider>
       </div>
