@@ -19,7 +19,8 @@ export default class Main extends Component {
                 <Switch>
                     <Route exact path="/" render={() => (
                         <Home   user={this.props.user}
-                                handleSave={this.props.handleSave}/> )} />
+                                handleSave={this.props.handleSave}
+                                onSnackbarMessage={this.props.onSnackbarMessage} /> )} />
                     
                     <Route exact path="/login" render={()=> (
                         <Login  user={this.props.user}

@@ -116,7 +116,8 @@ class App extends Component {
               onLogout={this.onLogout} />
             <Main user={this.state.user} 
                   onLoginSuccess={this.onLoginSuccess}
-                  handleSave={this.handleSave} />
+                  handleSave={this.handleSave}
+                  onSnackbarMessage={this.onSnackbarMessage} />
             <Footer />
             <Snackbar 
                   open={this.state.snackbar.open}

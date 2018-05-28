@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 import SearchBox from './searchBox';
 import CircularProgress from 'material-ui/CircularProgress';
-import Snackbar from 'material-ui/Snackbar';
 import ArticleList from './articleList';
 
 import API from '../../api';
@@ -15,10 +14,6 @@ export default class Home extends Component {
         this.state = {
             articles: [],
             isLoading: true,
-            snackbar: {
-                open: false,
-                message: ''
-            },
             search: '',
             disabled: false,
             searchStatus: false
@@ -38,38 +33,15 @@ export default class Home extends Component {
             }
             API.post('/api/favorites/add', body, options )
                 .then( response => {
-                    
                     this.props.handleSave( response.data._id );
-                    this.setState({
-                        snackbar : {
-                            ...this.state.snackbar,
-                            open: true,
-                            message: 'Article saved to favorites.'
-                        }
-                    });
+                    this.props.onSnackbarMessage('Article saved to favorites.');
                 })
                 .catch( error => {
                     console.log(error);
                 });
         } else {
-            this.setState({
-                snackbar : {
-                    ...this.state.snackbar,
-                    open: true,
-                    message: 'You must be logged in to save an article'
-                }
-            });
+            this.props.onSnackbarMessage('You must be logged in to save an article');
         }
-    };
-
-    handleSnackbarClose = () => {
-        this.setState({
-            snackbar : {
-                ...this.state.snackbar,
-                open: false,
-                message: ''
-            }
-        });
     };
 
     handleSearchSubmit = (e) => {
@@ -86,14 +58,7 @@ export default class Home extends Component {
                         });
                     }
                 })
-                .catch( error => {
-                    this.setState({
-                        snackbar: {
-                            open: true,
-                            message: error
-                        }
-                    });
-                });
+                .catch( error => { this.props.onSnackbarMessage(error) });
             this.setState({
                 search: "",
                 disabled: false,
@@ -132,11 +97,6 @@ export default class Home extends Component {
                         searchActive={this.state.searchStatus}/>
                     <ArticleList articles={this.state.articles} user={this.props.user} handleSave={this.handleSave}></ArticleList>
                 </React.Fragment> }
-                <Snackbar 
-                    open={this.state.snackbar.open}
-                    message={this.state.snackbar.message}
-                    autoHideDuration={1500}
-                    onRequestClose={this.handleSnackbarClose}/>
             </React.Fragment>)
     }
 }
