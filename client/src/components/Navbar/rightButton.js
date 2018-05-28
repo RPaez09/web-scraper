@@ -25,19 +25,29 @@ export default class RightButton extends Component {
         }
     };
 
+    toggleMenu = e => {
+        this.setState({ isOpen: !this.state.isOpen });
+    }
+
+    onLogout = e => {
+        this.toggleMenu();
+        this.props.onLogout();
+    };
+
     render(){
         return (
             (!this.props.user.isLoggedIn)   ? <Link to="/login"><FlatButton label="Login" style={style} /></Link> 
                                             : <IconMenu
                                                     iconButtonElement={<FlatButton label={this.props.user.username} style={style} />}
-                                                    open={this.state.openMenu}
+                                                    open={this.state.isOpen}
                                                     onRequestChange={this.handleOnRequestChange}
-                                                    targetOrigin={{horizontal: 'left', vertical: 'bottom'}} >
-                                                    <Link to="/saved" style={linkStyle}><MenuItem
+                                                    targetOrigin={{horizontal: 'left', vertical: 'bottom'}}
+                                                    onClick={this.toggleMenu} >
+                                                    <Link to="/saved" style={linkStyle} onClick={this.toggleMenu}><MenuItem
                                                         primaryText="Saved Articles"/></Link>
                                                     <MenuItem 
                                                         primaryText="Logout"
-                                                        onClick={this.props.onLogout} />
+                                                        onClick={this.onLogout} />
                                                 </IconMenu>
         )
     }
