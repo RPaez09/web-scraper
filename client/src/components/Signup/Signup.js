@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import SignupForm from './signupForm';
 
-import Snackbar from 'material-ui/Snackbar';
 import { Redirect } from 'react-router';
 
 import API from '../../api';
@@ -34,11 +33,7 @@ export default class Signup extends Component {
                 errorMsg: '',
                 isValid: false
             },
-            submitBtnDisabled: false,
-            snackbar: {
-                open: false,
-                message: ''
-            }
+            submitBtnDisabled: false
         };
     };
 
@@ -139,16 +134,6 @@ export default class Signup extends Component {
         }
     };
 
-    handleSnackbarClose = () => {
-        this.setState({
-            snackbar: {
-                ...this.state.snackbar,
-                open: false,
-                message: ''
-            }
-        });
-    };
-
     handleSubmit = (e) => {
         e.preventDefault();
 
@@ -165,7 +150,7 @@ export default class Signup extends Component {
                     username: this.state.username.value,
                     password: this.state.password.value,
                     email: this.state.email.value
-                }
+                };
 
                 API.post('/api/user/signup' , credentials)
                     .then( response => {
@@ -184,13 +169,9 @@ export default class Signup extends Component {
                                 .catch( error => console.log(error) );
                         } else {
                             this.setState({
-                                submitBtnDisabled: false,
-                                snackbar : {
-                                    ...this.state.snackbar,
-                                        open: true,
-                                        message: response.data.msg
-                                }
+                                submitBtnDisabled: false
                             });
+                            this.props.onSnackbarMessage(response.data.msg);
                         }
                     })
                     .catch( error => console.log(error) );
@@ -213,12 +194,7 @@ export default class Signup extends Component {
                     onEmailChange={this.handleEmailChange}
                     submitBtnDisabled={this.state.submitBtnDisabled}
                     onSubmit={this.handleSubmit}/>
-                <Snackbar
-                    open={this.state.snackbar.open}
-                    message={this.state.snackbar.message}
-                    autoHideDuration={2500}
-                    onRequestClose={this.handleSnackbarClose}/>
             </React.Fragment>
         )
     };
-}
+};

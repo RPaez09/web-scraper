@@ -29,7 +29,8 @@ export default class Main extends Component {
                     
                     <Route exact path="/signup" render={() =>(
                         <Signup user={this.props.user}
-                                onLoginSuccess={this.props.onLoginSuccess} />)} />
+                                onLoginSuccess={this.props.onLoginSuccess} 
+                                onSnackbarMessage={this.props.onSnackbarMessage} />)} />
                     
                     <Route exact path="/article/:id" render={(props)=> (
                         <ArticleDetail {...props} user={this.props.user} />)} />
