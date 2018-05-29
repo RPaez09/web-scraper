@@ -26,7 +26,7 @@ exports.sign_in = function( req, res ) {
     User.findOne( { username : req.body.username.toLowerCase() } )
         .then( function(user) {
             if( !user ){
-                res.status(200).send( { success: false, msg: 'Authentication failed. Invalid Username of Password.'} );
+                res.status(200).send( { success: false, msg: 'Invalid Username or Password.'} );
             } else {
                 user.comparePassword( req.body.password, function( err, isMatch ) {
                     if( isMatch && !err ){
@@ -46,7 +46,7 @@ exports.sign_in = function( req, res ) {
                             })
                             .catch( ( error ) => res.send( error ) );
                     } else {
-                        res.status(200).send( { success: false, msg: 'Authentication failed. Invalid Username or Password.' });
+                        res.status(200).send( { success: false, msg: 'Invalid Username or Password.' });
                     }
                 })
             }
