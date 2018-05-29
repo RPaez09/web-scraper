@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import LoginForm from './loginForm';
 
-import Snackbar from 'material-ui/Snackbar';
 import { Redirect } from 'react-router';
 
 import API from '../../api';
@@ -18,13 +17,9 @@ export default class Login extends Component {
             password: '',
             passwordError: '',
             passwordValid: false,
-            submitBtnDisabled: false,
-            snackbar: {
-                open: false,
-                message: ''
-            }
+            submitBtnDisabled: false
         }
-    }
+    };
 
     handleUsernameChange = (e) => {
         if( e.target.value === "" ){
@@ -40,7 +35,7 @@ export default class Login extends Component {
                 userValid: true
             });
         }
-    }
+    };
 
     handlePasswordChange = (e) => {
 
@@ -58,21 +53,11 @@ export default class Login extends Component {
             });
         }
 
-    }
-
-    handleSnackbarClose = () => {
-        this.setState({
-            snackbar: {
-                ...this.state.snackbar,
-                open: false,
-                message: ''
-            }
-        });
-    }
+    };
 
     onLoginSuccess = (payload) => {
         this.props.onLoginSuccess(payload);
-    }
+    };
 
     handleSubmit = (e) => {
         e.preventDefault();
@@ -105,19 +90,16 @@ export default class Login extends Component {
 
                     } else {
                         this.setState({
-                            submitBtnDisabled : false,
-                            snackbar: {
-                                ...this.state.snackbar,
-                                open: true,
-                                message: response.data.msg
-                            }
+                            submitBtnDisabled : false
                         });
+
+                        this.props.onSnackbarMessage(response.data.msg);
                     }
 
                 })
                 .catch( err => console.log( err ) );
         }
-    }
+    };
 
     render(){
         return (
@@ -133,11 +115,6 @@ export default class Login extends Component {
                 password={this.state.password}
                 onPasswordChange={this.handlePasswordChange}
                 passwordError={this.state.passwordError}/>
-            <Snackbar
-                open={this.state.snackbar.open}
-                message={this.state.snackbar.message}
-                autoHideDuration={2500}
-                onRequestClose={this.handleSnackbarClose} />
         </React.Fragment>)
-    }
-}
+    };
+};
