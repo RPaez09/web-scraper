@@ -39,3 +39,22 @@ exports.create_a_comment = ( req, res ) => {
         res.status(403).send( { success: false, msg: 'Unauthorized' } );
     }
 };
+
+exports.delete_a_comment = ( req, res ) => {
+    const token = getToken( req.headers );
+
+    if( token ){
+
+        user = jwt.verify( token, process.env.JWT_SECRET );
+
+        if( user._id === req.body.userID ){
+            comment.deleteOne({ _id: req.body._id })
+                .then( comment => res.send(comment) )
+                .catch( error => console.log( `Error: ${error}` ) );
+        } else {
+            res.status(403).send( { success: false, msg: 'Unauthorized' } );
+        }
+    } else {
+        res.status(403).send( { success: false, msg: 'Unauthorized' } );
+    }
+};

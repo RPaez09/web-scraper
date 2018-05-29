@@ -22,6 +22,9 @@ module.exports = ( app ) => {
     app.route('/api/comments/')
         .post( comments.create_a_comment );
 
+    app.route('/api/comments/delete/')
+        .delete( comments.delete_a_comment );
+
     app.route('/api/comments/:articleId')
         .get( comments.get_comments_by_article );
 
