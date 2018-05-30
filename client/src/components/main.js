@@ -33,7 +33,9 @@ export default class Main extends Component {
                                 onSnackbarMessage={this.props.onSnackbarMessage} />)} />
                     
                     <Route exact path="/article/:id" render={(props)=> (
-                        <ArticleDetail {...props} user={this.props.user} />)} />
+                        <ArticleDetail {...props} 
+                                user={this.props.user}
+                                onSnackbarMessage={this.props.onSnackbarMessage} />)} />
                     
                     <Route exact path="/saved" render={() => (
                         <SavedArticles user={this.props.user}/> )} />

@@ -81,6 +81,7 @@ export default class ArticleDetail extends Component {
                             comments: this.state.commentList.comments.concat( response.data )
                         }
                         });
+                    this.props.onSnackbarMessage("You comment has been submitted");
                 }
             })
             .catch( error => console.log(`Error : ${error}`) );
