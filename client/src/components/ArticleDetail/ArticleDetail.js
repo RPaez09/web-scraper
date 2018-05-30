@@ -96,6 +96,7 @@ export default class ArticleDetail extends Component {
                 </Paper>
                 <Paper style={style} zDepth={0}>
                     <CommentList 
+                        user={this.props.user}
                         isLoading={this.state.commentList.isLoading}
                         comments={this.state.commentList.comments}/>
                 </Paper>

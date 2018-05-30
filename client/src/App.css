@@ -69,6 +69,16 @@ body {
   bottom: 0;
 }
 
+.comment-box {
+  position: relative;
+}
+
+.comment-controls {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
 .footer {
   margin-top: 20px;
   background: #333333;

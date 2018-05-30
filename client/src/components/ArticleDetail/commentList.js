@@ -2,6 +2,8 @@ import React from 'react';
 
 import { Card, CardHeader, CardText } from 'material-ui/Card';
 import CircularProgress from 'material-ui/CircularProgress';
+import IconButton from 'material-ui/IconButton';
+import ActionDelete from 'material-ui/svg-icons/action/delete';
 
 const CommentList = (props) => {
     if( props.isLoading ){
@@ -17,9 +19,16 @@ const CommentList = (props) => {
         )
     } else {
         return props.comments.map( comment => (
-        <Card key={comment._id}> 
+        <Card key={comment._id} className="comment-box"> 
             <CardHeader title={comment.username}/>
             <CardText>{comment.text}</CardText>
+            { props.user.isLoggedIn && props.user.id === comment.userID &&
+                <div className="comment-controls">
+                    <IconButton tooltip="Delete">
+                        <ActionDelete />
+                    </IconButton>
+                </div>
+            }
         </Card>) )
     }
 }
