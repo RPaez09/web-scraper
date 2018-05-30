@@ -48,8 +48,14 @@ exports.delete_a_comment = ( req, res ) => {
         user = jwt.verify( token, process.env.JWT_SECRET );
 
         if( user._id === req.body.userID ){
-            comment.deleteOne({ _id: req.body._id })
-                .then( comment => res.send(comment) )
+            comment.findByIdAndRemove({ _id: req.body._id })
+                .then( comment => {
+                    if( comment ){
+                        res.send({comment: comment._doc, success: true, msg: "Comment succesfully deleted"});
+                    } else {
+                        res.send({ success: false, msg: "Comment already deleted/Not found" });
+                    }
+                })
                 .catch( error => console.log( `Error: ${error}` ) );
         } else {
             res.status(403).send( { success: false, msg: 'Unauthorized' } );
