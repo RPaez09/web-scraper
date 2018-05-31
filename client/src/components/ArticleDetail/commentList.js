@@ -24,7 +24,7 @@ const CommentList = (props) => {
             <CardText>{comment.text}</CardText>
             { props.user.isLoggedIn && props.user.id === comment.userID &&
                 <div className="comment-controls">
-                    <IconButton tooltip="Delete">
+                    <IconButton tooltip="Delete" onClick={() => props.openConfirmDelete(comment._id)}>
                         <ActionDelete />
                     </IconButton>
                 </div>

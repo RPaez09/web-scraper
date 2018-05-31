@@ -5,6 +5,7 @@ import Paper from 'material-ui/Paper';
 import Title from './title';
 import CommentList from './commentList';
 import CommentBox from './CommentBox/commentBox';
+import ConfirmDelete from './ConfirmDelete/confirmDelete';
 
 import API from '../../api';
 
@@ -28,9 +29,13 @@ export default class ArticleDetail extends Component {
             commentList: {
                 isLoading: true,
                 comments: []
+            },
+            confirmDelete: {
+                open: false,
+                id: ''
             }
         }
-    }
+    };
 
     componentDidMount(){
         API.get(`/api/articles/${this.props.match.params.id}`) //Get main article details
@@ -58,7 +63,7 @@ export default class ArticleDetail extends Component {
                     }
                 }) )
             .catch( error => console.log( error ) )
-    }
+    };
 
     onSubmitComment = ( commentText ) => {
         let newComment = {
@@ -66,11 +71,11 @@ export default class ArticleDetail extends Component {
             username : this.props.user.username,
             userID : this.props.user.id,
             text : commentText
-        }
+        };
 
         let options = {
             headers : { authorization : this.props.user.token }
-        }
+        };
 
         API.post('/api/comments', newComment, options )
             .then( response => {
@@ -85,7 +90,45 @@ export default class ArticleDetail extends Component {
                 }
             })
             .catch( error => console.log(`Error : ${error}`) );
-    }
+    };
+
+    onDeleteComment = ( ) => {
+        let options = {
+            headers : { authorization : this.props.user.token }
+        };
+
+        API.delete(`/api/comments/delete/${this.state.confirmDelete.id}`, options)
+            .then( response => {
+                if( response.data.success ){
+                    this.setState({
+                        commentList: 
+                            { ...this.state.commentList, 
+                                comments: this.state.commentList.comments.filter( comment => comment._id !== response.data.comment._id ) 
+                            },
+                        confirmDelete:
+                            {
+                                open: false,
+                                id: ''
+                            }
+                    });
+                    this.props.onSnackbarMessage("Your comment has been successfully deleted");
+                } else {
+                    this.props.onSnackbarMessage( response.msg );
+                }
+            })
+            .catch( error => {
+                console.log(error);
+                this.props.onSnackbarMessage("There was an error deleting your comment");
+            });
+    };
+
+    onOpenConfirmDelete = (id) => {
+        this.setState({ confirmDelete: { ...this.state.confirmDelete, open: true, id: id } });
+    };
+
+    onCloseConfirmDelete = () => {
+        this.setState({ confirmDelete: { ...this.state.confirmDelete, open: false, id: '' } });
+    };
 
     render(){
         return (
@@ -99,7 +142,8 @@ export default class ArticleDetail extends Component {
                     <CommentList 
                         user={this.props.user}
                         isLoading={this.state.commentList.isLoading}
-                        comments={this.state.commentList.comments}/>
+                        comments={this.state.commentList.comments}
+                        openConfirmDelete={this.onOpenConfirmDelete}/>
                 </Paper>
                 <Paper style={style} zDepth={0}>
                     <CommentBox 
@@ -107,7 +151,11 @@ export default class ArticleDetail extends Component {
                         onSubmit={this.onSubmitComment}
                         disabled={this.state.title.isLoading} />
                 </Paper>
+                <ConfirmDelete 
+                    open={this.state.confirmDelete.open}
+                    handleClose={this.onCloseConfirmDelete}
+                    handleDelete={this.onDeleteComment}/>
             </React.Fragment>
         )
-    }
-}
+    };
+};
