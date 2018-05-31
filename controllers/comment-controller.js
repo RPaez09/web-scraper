@@ -47,19 +47,26 @@ exports.delete_a_comment = ( req, res ) => {
 
         user = jwt.verify( token, process.env.JWT_SECRET );
 
-        if( user._id === req.body.userID ){
-            comment.findByIdAndRemove({ _id: req.body._id })
-                .then( comment => {
-                    if( comment ){
-                        res.send({comment: comment._doc, success: true, msg: "Comment succesfully deleted"});
+        comment.findById(req.params.id)
+            .then( targetComment => {
+                if( targetComment ){ // check if the comment exists
+                    if( targetComment.userID === user._id ){ // check if the comment belongs to the user
+                        comment.findByIdAndRemove(req.params.id)
+                            .then( deletedComment => {
+                                res.send({comment: deletedComment._doc, success: true, msg: 'Comment succesfully deleted'});
+                            })
+                            .catch( error => console.log(error) );
                     } else {
-                        res.send({ success: false, msg: "Comment already deleted/Not found" });
+                        res.status(403).send( { success: false, msg: 'Unauthorized' } );
                     }
-                })
-                .catch( error => console.log( `Error: ${error}` ) );
-        } else {
-            res.status(403).send( { success: false, msg: 'Unauthorized' } );
-        }
+                } else {
+                    res.send({ success: false, msg: 'Comment not found' });
+                }
+            })
+            .catch( error => {
+                console.log(error);
+                res.status(404).send();
+            });
     } else {
         res.status(403).send( { success: false, msg: 'Unauthorized' } );
     }

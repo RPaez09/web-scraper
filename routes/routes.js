@@ -22,7 +22,7 @@ module.exports = ( app ) => {
     app.route('/api/comments/')
         .post( comments.create_a_comment );
 
-    app.route('/api/comments/delete/')
+    app.route('/api/comments/delete/:id')
         .delete( comments.delete_a_comment );
 
     app.route('/api/comments/:articleId')
