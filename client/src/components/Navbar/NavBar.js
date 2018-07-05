@@ -15,14 +15,14 @@ const TitleStyles = {
     flex: "none"
 };
 
-const Navbar = ( { history, user, onLogout } ) => {
+const Navbar = ( { history, user, onLogout, openMenu } ) => {
     return (
         <AppBar
             title={<span> Hacker News</span>}
-            showMenuIconButton={false}
             style={NavbarStyles}
             titleStyle={TitleStyles}
             onTitleClick={() => history.push('/')}
+            onLeftIconButtonClick={openMenu}
             iconElementRight={<RightButton 
                                 user={user}
                                 onLogout={onLogout} />} />
