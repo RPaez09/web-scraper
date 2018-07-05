@@ -69,6 +69,11 @@ body {
   bottom: 0;
 }
 
+.comment-btn,
+.save-btn {
+  top: 2px;
+}
+
 .comment-box {
   position: relative;
 }
