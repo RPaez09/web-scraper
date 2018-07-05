@@ -7,6 +7,7 @@ import './App.css';
 
 import Navbar from './components/Navbar/NavBar';
 import Main from './components/main';
+import MenuDrawer from './components/MenuDrawer/MenuDrawer';
 import Footer from './components/Footer/Footer';
 
 const muiTheme = getMuiTheme({
@@ -31,6 +32,9 @@ class App extends Component {
       snackbar: {
         open: false,
         message: ''
+      },
+      menuDrawer: {
+        open: false
       }
     }
   };
@@ -106,14 +110,22 @@ class App extends Component {
     });
   };
 
+  handleMenuOpen = () => { this.setState({menuDrawer : {...this.state.menuDrawer, open: true}}); };
+
+  handleMenuClose = () => { this.setState({menuDrawer : {...this.state.menuDrawer, open: false}}); };
+
   render() {
     return (
       <div className="App">
         <MuiThemeProvider muiTheme={muiTheme}>
           <React.Fragment>
+            <MenuDrawer 
+              open={this.state.menuDrawer.open}
+              handleClose={this.handleMenuClose}/>
             <Navbar 
               user={this.state.user}
-              onLogout={this.onLogout} />
+              onLogout={this.onLogout}
+              openMenu={this.handleMenuOpen} />
             <Main user={this.state.user} 
                   onLoginSuccess={this.onLoginSuccess}
                   handleSave={this.handleSave}
