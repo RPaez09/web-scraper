@@ -35,8 +35,10 @@ export default class ArticleCard extends Component {
                 />
                 <CardActions style={styles.cardActions} className="article-actions">
                     <FlatButton href={this.props.article.context} target="_blank" label="Context" />
-                    <Link to={`/article/${this.props.article.id}`}><FlatButton label="Comments" /></Link>
-                    { ! this.props.user.favorites.includes(this.props.article._id) ? <FlatButton label="Save" onClick={this.handleSave}/> : <FlatButton label="Save" disabled={true} />}
+                    <Link to={`/article/${this.props.article.id}`}><FlatButton className="comment-btn" label="Comments" /></Link>
+                    { ! this.props.user.favorites.includes(this.props.article._id)
+                        ? <FlatButton label="Save" className="save-btn" onClick={this.handleSave}/> 
+                        : <FlatButton label="Save" className="save-btn" disabled={true} />}
                 </CardActions>
                 <CardText></CardText>
             </Card> 
